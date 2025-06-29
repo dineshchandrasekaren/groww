@@ -41,12 +41,12 @@ const App = () => {
 
           {/* Middle Column */}
           <VStack spacing={2} align="stretch">
-            <MarketHeader {...marketData} />
             <Box
               bg="#141414"
               borderRadius="md"
               minH="500px"
               marginBottom="40px"
+              marginTop={100}
             >
               <TradingView symbol="BTCUSDT" />
             </Box>
