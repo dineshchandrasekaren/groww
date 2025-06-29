@@ -1,4 +1,4 @@
-import { Box, Grid, GridItem, VStack } from "@chakra-ui/react";
+import { Box, Grid, VStack } from "@chakra-ui/react";
 import MarketHeader from "./components/market/MarketHeader";
 import MarketSearch from "./components/market/MarketSearch";
 import MarketTrades from "./components/market/MarketTrades";
@@ -7,6 +7,7 @@ import OrderBook from "./components/market/OrderBook";
 import TradeForm from "./components/market/TradeForm";
 import TradingView from "./components/market/TradingView";
 import Navbar from "./components/layout/Navbar.layout";
+import OrderHistory from "./components/market/OrderHistory";
 
 const marketData = {
   price: 67012.0,
@@ -17,43 +18,56 @@ const marketData = {
   volumeUSDT: 1839020199.75,
 };
 
-function App() {
+const App = () => {
   return (
-    <Box bg="#0A0A0A" minH="100vh" color="white">
+    <VStack minH="100vh" bg="#0B0B0B" spacing={0} align="stretch">
+      {/* Navbar */}
       <Navbar />
-      <MarketHeader {...marketData} />
-      <Grid
-        templateColumns={{ base: "1fr", md: "1fr 2fr 1fr" }}
-        templateRows={{ base: "auto", md: "1fr" }}
-        gap={2}
-        p={2}
-        maxW="1920px"
-        mx="auto"
-        h="calc(100vh - 120px)" // Adjust height based on Navbar and MarketHeader
-      >
-        <GridItem>
-          <OrderBook />
-        </GridItem>
 
-        <GridItem>
-          <VStack spacing={2} align="stretch" h="100%">
-            <Box flex="1" minH="400px">
+      {/* Main Content */}
+      <Box flex={1}>
+        <Grid
+          templateColumns={{ base: "1fr", lg: "300px 1fr 300px" }}
+          gap={2}
+          maxW="1920px"
+          mx="auto"
+          p={2}
+        >
+          {/* Left Column */}
+          <VStack spacing={2} align="stretch">
+            <MarketHeader {...marketData} />
+            <OrderBook />
+          </VStack>
+
+          {/* Middle Column */}
+          <VStack spacing={2} align="stretch">
+            <MarketHeader {...marketData} />
+            <Box
+              bg="#141414"
+              borderRadius="md"
+              minH="500px"
+              marginBottom="40px"
+            >
               <TradingView symbol="BTCUSDT" />
             </Box>
             <TradeForm />
           </VStack>
-        </GridItem>
 
-        <GridItem>
+          {/* Right Column */}
           <VStack spacing={2} align="stretch">
             <MarketSearch />
             <MarketTrades />
             <TopMovers />
           </VStack>
-        </GridItem>
-      </Grid>
-    </Box>
+        </Grid>
+
+        {/* Bottom Section - Order History */}
+        <Box maxW="1920px" mx="auto" p={2} mt={2}>
+          <OrderHistory />
+        </Box>
+      </Box>
+    </VStack>
   );
-}
+};
 
 export default App;
